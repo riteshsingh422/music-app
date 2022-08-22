@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="main_div">
+		<div class="music_container">
+			<h2 id="title">STAY</h2>
+			<h3 id="artist">Justin Biber</h3>
+			<div class="img_container">
+				<img src="images1/rits.1.jpeg">
+			</div>
+			<audio src="music/Stay.mp3" ></audio>
+
+			<!------ CONTROLS ------->
+
+			<div class="music_controls">
+				<i class="fas fa-backward" id="prev" title="Previous"></i>
+				<i class="fas fa-play main_button" id="play" title="Play"></i>
+				<i class="fas fa-forward" id="next" title="Next"></i>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const music = document.querySelector('audio');
+		const img   = document.querySelector('img');
+		const play = document.getElementById('play');
+		const artits = document.getElementById('artits');
+		const title = document.getElementById('title');
+		const prev = document.getElementById('prev');
+		const next = document.getElementById('next');
+
+		const songs = [
+		{
+			name: "Stay",
+			title: "Stay",
+			image:"rits.1",
+			artits: "Justin Biber",
+		},
+
+		{
+			name: "Kesariya",
+			title: "Kesariya",
+			image: "rits.2",
+			artits: "Arijit Singh",
+		},
+
+		{
+			name: "Hawayein",
+			title: "Hawayein",
+			image: "rits.3",
+			artits: "Arijit Singh",
+		}, 
+	];
+
+		let isPlaying = false;
+
+		//for play
+
+		const playMusic= () => {
+			isPlaying = true;
+			music.play();
+			play.classList.replace("fa-play", "fa-pause");
+			img.classList.add("anime");
+		}; 
+
+		//for pause
+
+		const pauseMusic= () => {
+			isPlaying = false;
+			music.pause();
+			play.classList.replace( "fa-pause" ,"fa-play");
+			img.classList.remove("anime");
+		};
+
+		play.addEventListener("click",() => {
+			if (isPlaying) {
+				pauseMusic();
+			}else{
+				playMusic();
+			}
+		});
+
+		const loadSong = (songs) => {
+			title.textContent = songs.title;
+			artist.textContent = songs.artist;
+			music.src = "music/" + songs.name + ".mp3";
+			img.src = "images1/" + songs.image + ".jpeg";
+		};
+
+		songIndex = 0;
+		//loadSong(songs[]);
+
+		const nextsong = () => {
+			songIndex = (songIndex + 1) % songs.length;
+			loadSong(songs[songIndex]);
+			playMusic();
+		};
+
+		/*const prevsong = () => {
+			songIndex = (songIndex - 1 + songs.length) % songs.length;
+			loadSong(songs[songIndex]);
+			playMusic();
+		};*/
+
+		next.addEventListener("click",nextsong);
+		next.addEventListener("click",prevsong);
+	</script>
+</body>
+</html>
